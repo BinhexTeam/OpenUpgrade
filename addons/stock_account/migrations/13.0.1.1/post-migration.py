@@ -231,6 +231,8 @@ def generate_stock_valuation_layer(env):
                         h_index += 1
                 # Add in svl
                 if move["move_type"] == "in" or is_dropship:
+                    if not move["product_qty"] and move["product_qty"] != 0.0:
+                        move["product_qty"] = 0.0
                     total_qty = previous_qty + move["product_qty"]
                     # TODO: is needed vaccum if total_qty is negative?
                     if float_is_zero(total_qty, precision_digits=precision_uom):
