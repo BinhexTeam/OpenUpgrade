@@ -139,6 +139,7 @@ def create_account_move_new_columns(env):
             ('amount_residual_signed', 'numeric'),
             ('invoice_payment_state', 'character varying'),
             ('invoice_partner_display_name', 'character varying'),
+            ('invoice_partner_bank_id', 'integer'),
         ],
         'account_move_line': [
             ('tax_audit', 'character varying'),
