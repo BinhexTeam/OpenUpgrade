@@ -522,6 +522,44 @@ def _precreate_account_move_is_storno(env):
         )
 
 
+def _precreate_fields_computation(env):
+    if not openupgrade.column_exists(
+        env.cr, "res_company", "early_pay_discount_computation"
+    ):
+        openupgrade.add_fields(
+            env,
+            [
+                (
+                    "early_pay_discount_computation",
+                    "res.company",
+                    "res_company",
+                    "selection",
+                    False,
+                    "account",
+                )
+            ],
+        )
+
+    if not openupgrade.column_exists(
+        env.cr, "account_analytic_line", "journal_id"
+    ):
+        openupgrade.add_fields(
+            env,
+            [
+                (
+                    "journal_id",
+                    "account.analytic.line",
+                    "account_analytic_line",
+                    "many2one",
+                    False,
+                    "account",
+                )
+            ],
+        )
+
+
+
+
 @openupgrade.migrate()
 def migrate(env, version):
     openupgrade.rename_xmlids(env.cr, _xmlids_renames)
@@ -554,4 +592,5 @@ def migrate(env, version):
     _fill_repartition_line_use_in_tax_closing(env)
     _precreate_account_move_auto_post_until(env)
     _precreate_account_move_is_storno(env)
+    _precreate_fields_computation(env)
     _fill_account_bank_statement_is_complete(env)
