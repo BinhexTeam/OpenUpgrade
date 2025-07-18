@@ -201,12 +201,32 @@ def _fill_stock_move_line_carrier_id(env):
     )
 
 
+def _precreate_fields_computation(env):
+    if not openupgrade.column_exists(
+        env.cr, "sale_order", "shipping_weight"
+    ):
+        openupgrade.add_fields(
+            env,
+            [
+                (
+                    "shipping_weight",
+                    "sale.order",
+                    "sale_order",
+                    "float",
+                    False,
+                    "delivery",
+                )
+            ],
+        )
+
+
 @openupgrade.migrate()
 def migrate(env, version):
     openupgrade.rename_xmlids(env.cr, _xmlids_renames)
     _delete_sql_constraints(env)
     _fill_sale_order_shipping_weight(env)
     _fill_stock_move_line_carrier_id(env)
+    _precreate_fields_computation(env)
     openupgrade.logged_query(  # just to be sure
         env.cr,
         """
