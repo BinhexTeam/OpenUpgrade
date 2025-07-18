@@ -54,6 +54,23 @@ def _precreate_fields_computation(env):
             ],
         )
 
+    if not openupgrade.column_exists(
+        env.cr, "stock_move_line", "picked"
+    ):
+        openupgrade.add_fields(
+            env,
+            [
+                (
+                    "picked",
+                    "stock.move.line",
+                    "stock_move_line",
+                    "boolean",
+                    False,
+                    "stock",
+                )
+            ],
+        )
+
 
 
 @openupgrade.migrate()
