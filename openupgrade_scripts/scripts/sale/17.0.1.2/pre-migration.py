@@ -22,6 +22,23 @@ def _precreate_fields_computation(env):
             ],
         )
 
+    if not openupgrade.column_exists(
+        env.cr, "sale_order", "amount_to_invoice"
+    ):
+        openupgrade.add_fields(
+            env,
+            [
+                (
+                    "amount_to_invoice",
+                    "sale.order",
+                    "sale_order",
+                    "monetary",
+                    False,
+                    "sale",
+                )
+            ],
+        )
+
 
 @openupgrade.migrate()
 def migrate(env, version):
