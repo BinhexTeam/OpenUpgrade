@@ -45,8 +45,8 @@ def _precreate_fields_computation(env):
             [
                 (
                     "picking_properties",
-                    "stock_picking",
                     "stock.picking",
+                    "stock_picking",
                     "json",
                     False,
                     "stock",
