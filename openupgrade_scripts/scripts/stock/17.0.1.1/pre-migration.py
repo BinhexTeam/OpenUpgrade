@@ -36,8 +36,29 @@ def fix_move_line_quantity(env):
     )
 
 
+def _precreate_fields_computation(env):
+    if not openupgrade.column_exists(
+        env.cr, "stock_picking", "picking_properties"
+    ):
+        openupgrade.add_fields(
+            env,
+            [
+                (
+                    "picking_properties",
+                    "stock_picking",
+                    "stock.picking",
+                    "json",
+                    False,
+                    "stock",
+                )
+            ],
+        )
+
+
+
 @openupgrade.migrate()
 def migrate(env, version):
     openupgrade.rename_fields(env, _field_renames)
     openupgrade.copy_columns(env.cr, _column_copies)
     fix_move_line_quantity(env)
+    _precreate_fields_computation(env)
