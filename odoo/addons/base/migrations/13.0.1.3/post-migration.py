@@ -30,6 +30,7 @@ def fix_res_partner_image(env):
                 attachment.res_id,
                 repr(e),
             )
+            attachment.unlink()
 
 
 def res_lang_week_start_map_values(env):
