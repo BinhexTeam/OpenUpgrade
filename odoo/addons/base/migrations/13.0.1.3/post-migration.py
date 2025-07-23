@@ -27,10 +27,9 @@ def fix_res_partner_image(env):
         except Exception as e:
             _logger.error(
                 "Error while recovering res.partner>image for %s: %s",
-                attachment.res_id,
+                attachment.id,
                 repr(e),
             )
-            attachment.unlink()
 
 
 def res_lang_week_start_map_values(env):
