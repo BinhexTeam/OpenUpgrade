@@ -116,7 +116,7 @@ def company_missing_favicons(env):
 @openupgrade.migrate()
 def migrate(env, version):
     res_lang_week_start_map_values(env)
-    fix_res_partner_image(env)
+    # fix_res_partner_image(env)
     ir_actions_binding_type_views(env)
     fill_ir_cron_lastcall(env)
     fill_arch_prev(env)
