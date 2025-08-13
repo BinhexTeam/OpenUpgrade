@@ -131,7 +131,7 @@ def numerical_range_to_prefixes(min_, max_):
     for stop in split_to_ranges(min_, max_):
         pattern = ""
         any_digit_count = 0
-        for start_digit, stop_digit in zip(str(start), str(stop), strict=True):
+        for start_digit, stop_digit in zip(str(start), str(stop)):
             if start_digit == stop_digit:
                 pattern += start_digit
             elif start_digit != "0" or stop_digit != "9":
